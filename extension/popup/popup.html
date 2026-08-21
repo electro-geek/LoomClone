@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Omnipotent</title>
+    <link rel="stylesheet" href="../common/brand.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="head">
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99" fill="none"
+                stroke="#f4f1ea" stroke-width="6.7" />
+          <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+        </svg>
+        <span class="brand__name">Omnipotent</span>
+      </div>
+      <button id="library-link" class="cx-btn cx-btn-ghost cx-btn-sm" type="button">
+        Recordings
+      </button>
+    </header>
+
+    <div class="strip">
+      <span class="cx-label"><span class="px px-sage"></span>Local only</span>
+      <span class="cx-label">No upload · No account</span>
+    </div>
+
+    <!-- Shown when a session is already running -->
+    <section id="active-panel" class="panel hidden">
+      <div class="cx-panel active-card">
+        <div class="active-top">
+          <span id="active-pill" class="cx-tag cx-tag-rec">
+            <span id="active-pill-text">Recording</span>
+          </span>
+          <span class="cx-label">§ Session</span>
+        </div>
+        <div id="active-timer" class="active-timer">00:00</div>
+        <div class="active-actions">
+          <button id="active-pause" class="cx-btn cx-btn-ghost" type="button">Pause</button>
+          <button id="active-stop" class="cx-btn cx-btn-rec" type="button">Stop &amp; save</button>
+        </div>
+        <button id="active-cancel" class="linky" type="button">[ Discard recording ]</button>
+      </div>
+    </section>
+
+    <!-- Idle configuration -->
+    <section id="setup-panel" class="panel">
+      <div id="permission-banner" class="cx-notice hidden">
+        <div>
+          <strong>Device access needed</strong>
+          <p>Grant camera + mic once. Sites you record are never asked.</p>
+        </div>
+        <button id="grant-btn" class="cx-btn cx-btn-sm" type="button">Grant</button>
+      </div>
+
+      <div id="notice-banner" class="cx-notice hidden">
+        <div>
+          <strong>Heads up</strong>
+          <p id="notice-text"></p>
+        </div>
+        <button id="notice-dismiss" class="cx-btn cx-btn-ghost cx-btn-sm" type="button">OK</button>
+      </div>
+
+      <div id="error-banner" class="cx-notice cx-notice-bad hidden">
+        <div>
+          <strong>Last attempt failed</strong>
+          <p id="error-text"></p>
+        </div>
+        <button id="error-dismiss" class="cx-btn cx-btn-ghost cx-btn-sm" type="button">OK</button>
+      </div>
+
+      <div class="cx-panel sources">
+        <div class="src-head">
+          <span class="cx-section-num">§ 01 · Sources</span>
+        </div>
+
+        <div class="src-row">
+          <label class="cx-toggle">
+            <input type="checkbox" id="use-mic" />
+            <span class="track"></span>
+            <span class="name">Mic</span>
+          </label>
+          <select id="mic-device" class="cx-select" aria-label="Microphone device"></select>
+        </div>
+
+        <div class="src-row cx-dashed">
+          <label class="cx-toggle">
+            <input type="checkbox" id="use-camera" />
+            <span class="track"></span>
+            <span class="name">Camera</span>
+          </label>
+          <select id="camera-device" class="cx-select" aria-label="Camera device"></select>
+        </div>
+
+        <div class="src-row cx-dashed">
+          <label class="cx-toggle">
+            <input type="checkbox" id="use-tab-audio" />
+            <span class="track"></span>
+            <span class="name">Tab audio</span>
+          </label>
+          <span class="hint">Tick “share audio” in the picker too</span>
+        </div>
+      </div>
+
+      <div class="cx-panel sources">
+        <div class="src-head">
+          <span class="cx-section-num">§ 02 · Output</span>
+        </div>
+        <div class="grid">
+          <label class="field">
+            <span class="cx-label">Quality</span>
+            <select id="quality" class="cx-select">
+              <option value="720p">720p</option>
+              <option value="1080p">1080p</option>
+              <option value="native">Native</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="cx-label">Frames</span>
+            <select id="fps" class="cx-select">
+              <option value="30">30 fps</option>
+              <option value="60">60 fps</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="cx-label">Format</span>
+            <select id="format" class="cx-select"></select>
+          </label>
+          <label class="field">
+            <span class="cx-label">Countdown</span>
+            <select id="countdown" class="cx-select">
+              <option value="0">Off</option>
+              <option value="3">3 sec</option>
+              <option value="5">5 sec</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <button id="start-btn" class="cx-btn cx-btn-rec cx-btn-block cx-btn-lg" type="button">
+        <span class="px px-bone"></span>
+        <span id="start-label">Start recording</span>
+      </button>
+      <p class="foot">Pick screen · window · tab next</p>
+    </section>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

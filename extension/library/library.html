@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Omnipotent — Recordings</title>
+    <link rel="stylesheet" href="../common/brand.css" />
+    <link rel="stylesheet" href="library.css" />
+  </head>
+  <body>
+    <div class="nav-wrap">
+      <nav class="nav">
+        <div class="brand">
+          <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99" fill="none"
+                stroke="#f4f1ea" stroke-width="6.7" />
+          <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+        </svg>
+          <span class="brand__name">Omnipotent</span>
+        </div>
+        <div class="nav-mid">
+          <span class="cx-label"><span class="px px-sage"></span>Archive</span>
+        </div>
+        <div class="nav-cta">
+          <input id="search" class="cx-input" type="search" placeholder="SEARCH…" aria-label="Search" />
+          <button id="new-btn" class="cx-btn cx-btn-rec" type="button">
+            <span class="px px-bone"></span> New recording
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="ticker">
+      <span class="ticker-label"><span class="px px-bone"></span>Local</span>
+      <span class="ticker-text" id="storage-line">Stored in this browser profile only.</span>
+    </div>
+
+    <main class="container">
+      <div class="head-row">
+        <span class="cx-section-num">§ 01 · Recordings</span>
+        <h1 class="cx-title page-title">My <em>recordings</em></h1>
+        <span class="cx-section-meta cx-label" id="count-line"></span>
+      </div>
+
+      <div id="stats" class="cx-kv-grid stats"></div>
+
+      <section id="empty" class="empty hidden">
+        <div class="cx-panel empty-card">
+          <div class="empty-mark">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99" fill="none"
+                    stroke="#f4f1ea" stroke-width="6.7" />
+              <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+            </svg>
+          </div>
+          <h2 class="cx-title empty-title">No recordings <em>yet</em></h2>
+          <p>
+            Hit <strong>NEW RECORDING</strong>, pick a screen, window or tab, and it lands here.
+            Everything is written to this browser profile — nothing is uploaded anywhere.
+          </p>
+        </div>
+      </section>
+
+      <div id="grid" class="grid"></div>
+    </main>
+
+    <!-- player -->
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Recording">
+      <div class="modal-card cx-panel">
+        <div class="modal-head">
+          <span class="cx-label"><span class="px"></span>Playback</span>
+          <button id="modal-close" class="cx-iconbtn" type="button" aria-label="Close">✕</button>
+        </div>
+        <video id="player" controls playsinline></video>
+        <div class="modal-body">
+          <input id="title-input" class="cx-input title-input" aria-label="Recording title" />
+          <p id="modal-meta" class="cx-label modal-meta"></p>
+          <div class="modal-actions">
+            <button id="download-btn" class="cx-btn" type="button">Download</button>
+            <button id="delete-btn" class="cx-btn cx-btn-ghost" type="button">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="library.js"></script>
+  </body>
+</html>

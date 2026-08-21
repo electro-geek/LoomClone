@@ -1,0 +1,31 @@
+<!--
+  OMNIPOTENT — primary mark.
+
+  Concept: total capture, fully contained.
+    · the O of the name, drawn as an aperture ring  → totality, containment
+    · a solid record dot at its centre              → capture
+    · one shutter notch cut into the ring at 45°    → the ownable detail
+
+  Geometry is on a 64 unit grid, centre (32,32):
+    ring   mid-radius 20.2, stroke 6.7  (spans r 16.85 → 23.55)
+    notch  centred at 45°, half-width 13° (a 26° radial cut, butt ends)
+    dot    radius 9.3
+
+  Everything else in the system is derived from this file — tools/make-icons.mjs
+  redraws the same construction for the 16/48/128 px extension icons.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"
+     role="img" aria-label="Omnipotent">
+  <title>Omnipotent</title>
+
+  <!-- tile -->
+  <rect x="1.2" y="1.2" width="61.6" height="61.6" rx="15.4" fill="#101014" />
+
+  <!-- aperture ring, opened by the shutter notch at the upper right -->
+  <path d="M 43.00 17.05
+           A 20.2 20.2 0 1 0 50.94 24.99"
+        fill="none" stroke="#f4f1ea" stroke-width="6.7" stroke-linecap="butt" />
+
+  <!-- record -->
+  <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+</svg>
