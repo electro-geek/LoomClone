@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Omnipotent recorder</title>
+  </head>
+  <body>
+    <!--
+      Invisible document. It exists only because MV3 service workers have no DOM
+      and therefore cannot hold a MediaStream. Everything here is headless except
+      the <video> used to grab a poster frame.
+    -->
+    <video id="thumb-probe" muted playsinline style="display: none"></video>
+    <!--
+      The webcam decodes here, not in the page. A site can disable the camera for
+      every frame it contains with a Permissions-Policy header; this document is
+      top-level and extension-owned, so no page policy reaches it. Frames are
+      broadcast to the in-page bubble, which only paints them.
+    -->
+    <video id="camera-feed" muted playsinline style="display: none"></video>
+    <script type="module" src="offscreen.js"></script>
+  </body>
+</html>

@@ -1,0 +1,444 @@
+/* Omnipotent — the design system, straight off brand/brandkit.png.
+ *
+ * Dark ink canvas, bone type, one signal red reserved for recording, sage for
+ * secondary state. Rounded panels with hairline borders and soft shadows, tiny
+ * wide-tracked labels, monospace throughout — the same language as the brand
+ * board, so the product looks like its own identity.
+ *
+ * Font note: the board is set in monospace and nothing here is fetched over the
+ * network, so the stack resolves to whatever mono face the machine has.
+ */
+
+:root {
+  /* Surfaces */
+  --ink: #101014; /* canvas */
+  --ink-2: #17171d; /* panel */
+  --ink-3: #22222a; /* raised / input */
+  --bone: #f4f1ea; /* primary text, the ring in the mark */
+
+  /* Accents — used sparingly, exactly as on the board */
+  --signal: #c0392b; /* record. nothing else. */
+  --signal-hi: #d4503f;
+  --sage: #6e7566; /* secondary state, success */
+  --sage-hi: #869080;
+
+  /* Lines and muted type, derived from bone */
+  --line: rgba(244, 241, 234, 0.14);
+  --line-2: rgba(244, 241, 234, 0.24);
+  --dim: rgba(244, 241, 234, 0.45);
+  --dim-2: rgba(244, 241, 234, 0.68);
+
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.3);
+
+  --mono: "Roboto Mono", "IBM Plex Mono", ui-monospace, "DejaVu Sans Mono",
+    "Liberation Mono", Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--bone);
+  background: var(--ink);
+  margin: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------- the mark */
+
+/* Bare ring + dot for dark UI; the tiled version is the app icon only. */
+.mark {
+  width: 26px;
+  height: 26px;
+  display: block;
+  flex: none;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand__name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Small accent square used inside labels. */
+.px {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--signal);
+  flex: none;
+}
+
+.px-sage {
+  background: var(--sage);
+}
+.px-bone {
+  background: var(--bone);
+}
+.px-dim {
+  background: var(--dim);
+}
+
+/* ------------------------------------------------------------------ labels */
+
+.cx-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The board's numbered section chips. */
+.cx-section-num {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.cx-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+  line-height: 1.1;
+  color: var(--bone);
+}
+
+.cx-title em {
+  font-style: normal;
+  color: var(--dim);
+}
+
+/* ------------------------------------------------------------------ panels */
+
+.cx-panel {
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  position: relative;
+}
+
+.cx-panel-raised {
+  background: var(--ink-3);
+}
+
+.cx-dashed {
+  border-top: 1px solid var(--line);
+}
+
+/* ----------------------------------------------------------------- buttons */
+
+.cx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.cx-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.cx-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.cx-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cx-btn:focus-visible {
+  outline: 2px solid var(--sage-hi);
+  outline-offset: 2px;
+}
+
+/* Record is the one signal-red action in the product. */
+.cx-btn-rec {
+  background: var(--signal);
+  color: var(--bone);
+  box-shadow: var(--shadow-sm);
+}
+.cx-btn-rec:hover:not(:disabled) {
+  background: var(--signal-hi);
+}
+
+.cx-btn-ghost {
+  background: transparent;
+  color: var(--bone);
+  border-color: var(--line-2);
+}
+.cx-btn-ghost:hover:not(:disabled) {
+  background: rgba(244, 241, 234, 0.07);
+  border-color: var(--dim);
+}
+
+.cx-btn-sage {
+  background: var(--sage);
+  color: var(--bone);
+}
+.cx-btn-sage:hover:not(:disabled) {
+  background: var(--sage-hi);
+}
+
+.cx-btn-sm {
+  padding: 6px 11px;
+  font-size: 11px;
+}
+.cx-btn-lg {
+  padding: 13px 18px;
+  font-size: 13px;
+}
+.cx-btn-block {
+  display: flex;
+  width: 100%;
+}
+
+.cx-iconbtn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--ink-3);
+  color: var(--bone);
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.cx-iconbtn:hover {
+  background: rgba(244, 241, 234, 0.12);
+}
+
+/* -------------------------------------------------------------------- tags */
+
+.cx-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: rgba(244, 241, 234, 0.05);
+  color: var(--dim-2);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.cx-tag-rec {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--bone);
+}
+.cx-tag-sage {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: var(--bone);
+}
+.cx-tag-bone {
+  background: var(--bone);
+  border-color: var(--bone);
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ inputs */
+
+.cx-input,
+.cx-select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--ink-3);
+  color: var(--bone);
+  font-family: var(--mono);
+  font-size: 12px;
+  transition: border-color 0.12s ease;
+}
+
+.cx-input:focus,
+.cx-select:focus {
+  outline: none;
+  border-color: var(--sage-hi);
+}
+
+.cx-input::placeholder {
+  color: var(--dim);
+}
+
+.cx-select:disabled {
+  color: var(--dim);
+  opacity: 0.6;
+}
+
+/* Toggle — a small aperture-ish pill, sage when on */
+.cx-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cx-toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cx-toggle .track {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--ink-3);
+  border: 1px solid var(--line-2);
+  flex: none;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.cx-toggle .track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--dim);
+  transition: transform 0.14s ease, background 0.14s ease;
+}
+
+.cx-toggle input:checked + .track {
+  background: rgba(110, 117, 102, 0.45);
+  border-color: var(--sage-hi);
+}
+
+.cx-toggle input:checked + .track::after {
+  transform: translateX(16px);
+  background: var(--bone);
+}
+
+.cx-toggle input:focus-visible + .track {
+  outline: 2px solid var(--sage-hi);
+  outline-offset: 2px;
+}
+
+.cx-toggle .name {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------- stat grid */
+
+.cx-kv-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.cx-kv {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-2);
+  padding: 12px 14px;
+}
+
+.cx-kv-num {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: block;
+  line-height: 1;
+  color: var(--bone);
+}
+
+.cx-kv-lbl {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+  margin-top: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ------------------------------------------------------------------ notices */
+
+.cx-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid var(--line-2);
+  border-left: 3px solid var(--sage);
+  border-radius: var(--radius-sm);
+  background: var(--ink-2);
+}
+
+.cx-notice-bad {
+  border-left-color: var(--signal);
+}
+
+.cx-notice strong {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.cx-notice p {
+  margin: 3px 0 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--dim-2);
+  overflow-wrap: anywhere;
+}

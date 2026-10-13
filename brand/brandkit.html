@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Omnipotent — brand kit</title>
+    <style>
+      /* ------------------------------------------------------------------
+         OMNIPOTENT — brand-kit overview board, 1600×1200 (4:3).
+
+         Export:  node thumbnails/shoot.mjs ../brand/brandkit.html --size=1600x1200
+
+         Drawn, not generated: every panel is HTML/CSS/SVG so the mark is
+         identical in all nine panels and stays editable. The same construction
+         drives brand/omnipotent-mark.svg and tools/make-icons.mjs.
+      ------------------------------------------------------------------ */
+      :root {
+        --ink: #101014; /* canvas + tiles */
+        --ink-2: #17171d; /* panel surface */
+        --ink-3: #22222a; /* raised surface */
+        --bone: #f4f1ea; /* paper + ring */
+        --signal: #c0392b; /* record — used sparingly */
+        --sage: #6e7566; /* secondary marks */
+        --line: rgba(244, 241, 234, 0.14);
+        --dim: rgba(244, 241, 234, 0.45);
+        --mono: "Roboto Mono", "IBM Plex Mono", ui-monospace, "DejaVu Sans Mono",
+          "Liberation Mono", Menlo, Consolas, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        background: var(--ink);
+        font-family: var(--mono);
+        color: var(--bone);
+      }
+
+      .board {
+        width: 1600px;
+        height: 1200px;
+        background: var(--ink);
+        padding: 44px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1.18fr 1fr 1fr 0.92fr;
+        gap: 18px;
+        position: relative;
+      }
+
+      .panel {
+        position: relative;
+        background: var(--ink-2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 26px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .panel--bone {
+        background: var(--bone);
+        color: var(--ink);
+        border-color: rgba(16, 16, 20, 0.12);
+      }
+
+      /* tiny corner label — premium detail, not decoration */
+      .panel::after {
+        content: attr(data-n);
+        position: absolute;
+        right: 14px;
+        bottom: 11px;
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        color: var(--dim);
+      }
+
+      .panel--bone::after {
+        color: rgba(16, 16, 20, 0.35);
+      }
+
+      .label {
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--dim);
+        flex: none;
+      }
+
+      .panel--bone .label {
+        color: rgba(16, 16, 20, 0.45);
+      }
+
+      .fill {
+        flex: 1;
+        display: grid;
+        place-items: center;
+        min-height: 0;
+      }
+
+      /* ------------------------------------------------------ 01 logo cover */
+
+      .cover {
+        grid-column: span 2;
+        justify-content: center;
+        gap: 26px;
+        padding: 40px 46px;
+      }
+
+      .cover__row {
+        display: flex;
+        align-items: center;
+        gap: 42px;
+      }
+
+      .wordmark {
+        font-size: 74px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        line-height: 1;
+      }
+
+      .cover__sub {
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        color: var(--dim);
+        margin-top: 14px;
+      }
+
+      /* ---------------------------------------------------- 02 construction */
+
+      .constr {
+        display: grid;
+        place-items: center;
+        padding-top: 40px;
+      }
+
+      /* --------------------------------------------------- 03 digital app */
+
+      .browser {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--ink-3);
+      }
+
+      .browser__bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .browser__dots {
+        display: flex;
+        gap: 5px;
+      }
+
+      .browser__dots i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(244, 241, 234, 0.22);
+        display: block;
+      }
+
+      .browser__url {
+        flex: 1;
+        height: 22px;
+        border-radius: 6px;
+        background: rgba(244, 241, 234, 0.07);
+      }
+
+      .browser__ext {
+        position: relative;
+        display: grid;
+        place-items: center;
+      }
+
+      .rec-badge {
+        position: absolute;
+        right: -6px;
+        top: -5px;
+        background: var(--signal);
+        color: var(--bone);
+        font-size: 8px;
+        letter-spacing: 0.1em;
+        padding: 1px 4px;
+        border-radius: 3px;
+      }
+
+      .browser__body {
+        height: 74px;
+        background: repeating-linear-gradient(
+          -45deg,
+          rgba(244, 241, 234, 0.03) 0 8px,
+          transparent 8px 16px
+        );
+      }
+
+      /* -------------------------------------------------------- 04 tagline */
+
+      .essence {
+        grid-column: span 2;
+        justify-content: center;
+      }
+
+      .essence__line {
+        font-size: 44px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        line-height: 1.16;
+      }
+
+      .essence__line em {
+        font-style: normal;
+        color: var(--signal);
+      }
+
+      /* ---------------------------------------------------------- 05 color */
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        flex: 1;
+        margin-top: 16px;
+      }
+
+      .swatch {
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: flex-end;
+        padding: 8px;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+      }
+
+      /* ----------------------------------------------------------- 06 type */
+
+      .specimen {
+        font-size: 74px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .specimen small {
+        display: block;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        margin-top: 12px;
+        color: rgba(16, 16, 20, 0.5);
+      }
+
+      /* ---------------------------------------------------------- 07 badge */
+
+      .badge-paper {
+        background:
+          radial-gradient(120% 90% at 30% 20%, rgba(255, 255, 255, 0.5), transparent 60%),
+          var(--bone);
+      }
+
+      .badge {
+        filter: drop-shadow(0 14px 22px rgba(16, 16, 20, 0.34));
+      }
+
+      /* -------------------------------------------------- 08 image direction */
+
+      .optic {
+        grid-column: span 2;
+        padding: 0;
+        background: #0b0b0e;
+      }
+
+      .optic__art {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(120% 140% at 50% 50%, #131319 0%, #0b0b0e 70%);
+      }
+
+      /* Fine scanline texture — the print/CRT grain from the reference DNA. */
+      .optic__grain {
+        position: absolute;
+        inset: 0;
+        background-image: repeating-linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.22) 0 1px,
+          transparent 1px 3px
+        );
+      }
+
+      .optic__label {
+        position: absolute;
+        left: 26px;
+        top: 22px;
+      }
+
+      /* -------------------------------------------------- 09 system detail */
+
+      .states {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .state {
+        display: grid;
+        place-items: center;
+        gap: 9px;
+      }
+
+      .state__chip {
+        width: 74px;
+        height: 74px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: var(--ink-3);
+        display: grid;
+        place-items: center;
+      }
+
+      .state__name {
+        font-size: 9px;
+        letter-spacing: 0.16em;
+        color: var(--dim);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <!-- 01 ------------------------------------------------------------- -->
+      <section class="panel panel--bone cover" data-n="01">
+        <div class="label">Primary mark</div>
+        <div class="fill">
+          <div>
+            <div class="cover__row">
+              <!-- the mark, on the 64 grid -->
+              <svg width="150" height="150" viewBox="0 0 64 64" aria-label="Omnipotent">
+                <rect x="1.2" y="1.2" width="61.6" height="61.6" rx="15.4" fill="#101014" />
+                <path
+                  d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99"
+                  fill="none"
+                  stroke="#f4f1ea"
+                  stroke-width="6.7"
+                />
+                <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+              </svg>
+              <div>
+                <div class="wordmark">OMNIPOTENT</div>
+                <div class="cover__sub" style="color: rgba(16, 16, 20, 0.5)">
+                  SCREEN RECORDER · LOCAL ONLY
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 ------------------------------------------------------------- -->
+      <section class="panel" data-n="02">
+        <div class="label">Construction</div>
+        <div class="fill constr">
+          <svg width="210" height="210" viewBox="0 0 64 64">
+            <!-- guides -->
+            <circle cx="32" cy="32" r="30.8" fill="none" stroke="#6e7566" stroke-width="0.3" />
+            <circle cx="32" cy="32" r="23.55" fill="none" stroke="#6e7566" stroke-width="0.3" />
+            <circle cx="32" cy="32" r="16.85" fill="none" stroke="#6e7566" stroke-width="0.3" />
+            <line x1="32" y1="0" x2="32" y2="64" stroke="#6e7566" stroke-width="0.25" />
+            <line x1="0" y1="32" x2="64" y2="32" stroke="#6e7566" stroke-width="0.25" />
+            <!-- the 45° notch axis -->
+            <line x1="32" y1="32" x2="56.5" y2="7.5" stroke="#c0392b" stroke-width="0.4" />
+            <!-- the mark itself -->
+            <path
+              d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99"
+              fill="none"
+              stroke="#f4f1ea"
+              stroke-width="6.7"
+            />
+            <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+            <!-- measure ticks -->
+            <text x="34.5" y="46.5" font-size="2.4" fill="#6e7566" font-family="monospace">r 20.2</text>
+            <text x="49.5" y="9.5" font-size="2.4" fill="#c0392b" font-family="monospace">26°</text>
+          </svg>
+        </div>
+      </section>
+
+      <!-- 03 ------------------------------------------------------------- -->
+      <section class="panel" data-n="03">
+        <div class="label">Digital application</div>
+        <div class="fill">
+          <div class="browser">
+            <div class="browser__bar">
+              <div class="browser__dots"><i></i><i></i><i></i></div>
+              <div class="browser__url"></div>
+              <div class="browser__ext">
+                <svg width="26" height="26" viewBox="0 0 64 64">
+                  <rect x="1.2" y="1.2" width="61.6" height="61.6" rx="15.4" fill="#101014" />
+                  <path
+                    d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99"
+                    fill="none"
+                    stroke="#f4f1ea"
+                    stroke-width="6.7"
+                  />
+                  <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+                </svg>
+                <span class="rec-badge">REC</span>
+              </div>
+            </div>
+            <div class="browser__body"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 ------------------------------------------------------------- -->
+      <section class="panel essence" data-n="04">
+        <div class="label">Brand essence</div>
+        <div class="fill" style="place-items: start center">
+          <div class="essence__line">
+            Everything recorded.<br /><em>Nothing uploaded.</em>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 ------------------------------------------------------------- -->
+      <section class="panel" data-n="05">
+        <div class="label">Color system</div>
+        <div class="swatches">
+          <div class="swatch" style="background: #101014; color: rgba(244,241,234,.6)">#101014</div>
+          <div class="swatch" style="background: #f4f1ea; color: rgba(16,16,20,.6)">#F4F1EA</div>
+          <div class="swatch" style="background: #c0392b; color: rgba(244,241,234,.85)">#C0392B</div>
+          <div class="swatch" style="background: #6e7566; color: rgba(16,16,20,.7)">#6E7566</div>
+        </div>
+      </section>
+
+      <!-- 06 ------------------------------------------------------------- -->
+      <section class="panel panel--bone" data-n="06">
+        <div class="label">Typography</div>
+        <div class="fill">
+          <div class="specimen">
+            Aa
+            <small>MONO · 0 1 2 3 4</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 ------------------------------------------------------------- -->
+      <section class="panel panel--bone badge-paper" data-n="07">
+        <div class="label">Physical</div>
+        <div class="fill">
+          <svg class="badge" width="132" height="132" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="31" fill="#101014" />
+            <path
+              d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99"
+              fill="none"
+              stroke="#f4f1ea"
+              stroke-width="6.7"
+            />
+            <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+          </svg>
+        </div>
+      </section>
+
+      <!-- 08 ------------------------------------------------------------- -->
+      <section class="panel optic" data-n="08">
+        <div class="optic__art">
+          <svg class="iris" viewBox="0 0 200 200" width="228" height="228" aria-hidden="true">
+            <defs>
+              <radialGradient id="glow">
+                <stop offset="0%" stop-color="#c0392b" stop-opacity=".95"/>
+                <stop offset="55%" stop-color="#c0392b" stop-opacity=".35"/>
+                <stop offset="100%" stop-color="#c0392b" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="95" fill="#16161b"/>
+            <polygon points="132.8,91.2 108.8,67.2 76.0,76.0 67.2,108.8 91.2,132.8 124.0,124.0" fill="#0b0b0e"/>
+            <circle cx="100" cy="100" r="30" fill="url(#glow)"/>
+            <polygon points="132.8,91.2 108.8,67.2 76.0,76.0 67.2,108.8 91.2,132.8 124.0,124.0" fill="none" stroke="#f4f1ea" stroke-opacity=".22" stroke-width="1.2"/>
+            <line x1="132.8" y1="91.2" x2="151.7" y2="20.3" stroke="#f4f1ea" stroke-opacity=".16" stroke-width="1.1"/>
+            <line x1="108.8" y1="67.2" x2="56.9" y2="15.4" stroke="#f4f1ea" stroke-opacity=".16" stroke-width="1.1"/>
+            <line x1="76.0" y1="76.0" x2="5.1" y2="95.0" stroke="#f4f1ea" stroke-opacity=".16" stroke-width="1.1"/>
+            <line x1="67.2" y1="108.8" x2="48.3" y2="179.7" stroke="#f4f1ea" stroke-opacity=".16" stroke-width="1.1"/>
+            <line x1="91.2" y1="132.8" x2="143.1" y2="184.6" stroke="#f4f1ea" stroke-opacity=".16" stroke-width="1.1"/>
+            <line x1="124.0" y1="124.0" x2="194.9" y2="105.0" stroke="#f4f1ea" stroke-opacity=".16" stroke-width="1.1"/>
+            <circle cx="100" cy="100" r="95" fill="none" stroke="#f4f1ea" stroke-opacity=".12" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="optic__grain"></div>
+        <div class="label optic__label">Image direction · aperture</div>
+      </section>
+
+      <!-- 09 ------------------------------------------------------------- -->
+      <section class="panel" data-n="09">
+        <div class="label">Icon states</div>
+        <div class="states">
+          <div class="state">
+            <div class="state__chip">
+              <svg width="44" height="44" viewBox="0 0 64 64">
+                <path
+                  d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99"
+                  fill="none"
+                  stroke="#f4f1ea"
+                  stroke-width="6.7"
+                  opacity="0.55"
+                />
+                <circle cx="32" cy="32" r="9.3" fill="#f4f1ea" opacity="0.28" />
+              </svg>
+            </div>
+            <span class="state__name">IDLE</span>
+          </div>
+          <div class="state">
+            <div class="state__chip" style="border-color: rgba(192, 57, 43, 0.5)">
+              <svg width="44" height="44" viewBox="0 0 64 64">
+                <path
+                  d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99"
+                  fill="none"
+                  stroke="#f4f1ea"
+                  stroke-width="6.7"
+                />
+                <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+              </svg>
+            </div>
+            <span class="state__name">REC</span>
+          </div>
+          <div class="state">
+            <div class="state__chip">
+              <svg width="44" height="44" viewBox="0 0 64 64">
+                <path
+                  d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99"
+                  fill="none"
+                  stroke="#f4f1ea"
+                  stroke-width="6.7"
+                  opacity="0.75"
+                />
+                <rect x="25.5" y="23.5" width="5" height="17" fill="#f4f1ea" />
+                <rect x="33.5" y="23.5" width="5" height="17" fill="#f4f1ea" />
+              </svg>
+            </div>
+            <span class="state__name">PAUSED</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

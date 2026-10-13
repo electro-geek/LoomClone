@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Omnipotent — Device access</title>
+    <link rel="stylesheet" href="../common/brand.css" />
+    <style>
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 40px 20px;
+        background: var(--ink);
+        /* faint dot field, echoing the brand board canvas */
+        background-image: radial-gradient(rgba(244, 241, 234, 0.07) 1px, transparent 1px);
+        background-size: 30px 30px;
+      }
+      .card {
+        width: min(620px, 100%);
+        background: var(--ink-2);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 22px;
+        border-bottom: 1px solid var(--line);
+      }
+      .body { padding: 30px 26px 26px; }
+      h1 {
+        margin: 0 0 10px;
+        font-size: clamp(23px, 3.2vw, 31px);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+      h1 em { font-style: normal; color: var(--dim); }
+      .lede {
+        margin: 0 0 26px;
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--dim-2);
+        max-width: 54ch;
+      }
+      .item {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 14px;
+        align-items: center;
+        padding: 16px 0;
+        border-top: 1px solid var(--line);
+      }
+      .item h2 {
+        margin: 0 0 3px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .item p { margin: 0; font-size: 12px; color: var(--dim); }
+      .status {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border: 1px solid var(--line-2);
+        border-radius: 999px;
+        color: var(--dim);
+        white-space: nowrap;
+      }
+      .status.granted { background: var(--sage); border-color: var(--sage); color: var(--bone); }
+      .status.denied { background: var(--signal); border-color: var(--signal); color: var(--bone); }
+      .preview {
+        display: none;
+        gap: 16px;
+        align-items: center;
+        margin-top: 22px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--ink-3);
+      }
+      .preview.on { display: flex; }
+      video {
+        width: 118px;
+        height: 118px;
+        border-radius: 50%;
+        object-fit: cover;
+        transform: scaleX(-1);
+        background: #000;
+        border: 2px solid var(--line-2);
+        flex: none;
+      }
+      .meter-wrap { flex: 1; }
+      .meter {
+        height: 10px;
+        margin-top: 8px;
+        border-radius: 999px;
+        border: 1px solid var(--line-2);
+        background: var(--ink);
+        overflow: hidden;
+      }
+      .meter i {
+        display: block;
+        height: 100%;
+        width: 0%;
+        background: var(--sage-hi);
+        transition: width 0.08s linear;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 26px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+      }
+      .note { margin: 18px 0 0; font-size: 11px; line-height: 1.7; color: var(--dim); }
+      code {
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-size: 11px;
+      }
+      @media (max-width: 560px) { .item { grid-template-columns: 1fr auto; } }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="card-head">
+        <div class="brand">
+          <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M 43.00 17.05 A 20.2 20.2 0 1 0 50.94 24.99" fill="none"
+                  stroke="#f4f1ea" stroke-width="6.7" />
+            <circle cx="32" cy="32" r="9.3" fill="#c0392b" />
+          </svg>
+          <span class="brand__name">Omnipotent</span>
+        </div>
+        <span class="cx-label">Setup</span>
+      </div>
+
+      <div class="body">
+        <h1>One-time <em>device access</em></h1>
+        <p class="lede">
+          Omnipotent asks for the camera and microphone once, here. The grant belongs to the
+          extension itself, so recording never triggers a permission prompt on the pages you
+          record.
+        </p>
+
+        <div class="item">
+          <div>
+            <h2><span class="px px-sage"></span>Microphone</h2>
+            <p>Your narration track.</p>
+          </div>
+          <span id="mic-status" class="status">Checking…</span>
+          <button id="mic-btn" class="cx-btn cx-btn-sm" type="button">Allow</button>
+        </div>
+
+        <div class="item">
+          <div>
+            <h2><span class="px px-bone"></span>Camera</h2>
+            <p>The webcam frame on top of the page.</p>
+          </div>
+          <span id="cam-status" class="status">Checking…</span>
+          <button id="cam-btn" class="cx-btn cx-btn-sm" type="button">Allow</button>
+        </div>
+
+        <div id="preview" class="preview">
+          <video id="preview-video" autoplay muted playsinline></video>
+          <div class="meter-wrap">
+            <span class="cx-label"><span class="px px-sage"></span>Input level</span>
+            <div class="meter"><i id="level"></i></div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="done-btn" class="cx-btn cx-btn-rec" type="button">
+            Done — back to recording
+          </button>
+          <button id="revoke-help" class="cx-btn cx-btn-ghost" type="button">Revoke?</button>
+        </div>
+
+        <p id="note" class="note">
+          Revoke any time from <code>chrome://settings/content/camera</code> and
+          <code>chrome://settings/content/microphone</code>.
+        </p>
+      </div>
+    </main>
+    <script type="module" src="permissions.js"></script>
+  </body>
+</html>
